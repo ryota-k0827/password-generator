@@ -10,4 +10,5 @@ export default defineConfig({
   build: {
     outDir: "./docs",
   },
+  base: "https://ryota-k0827.github.io/password-generator/",
 });
