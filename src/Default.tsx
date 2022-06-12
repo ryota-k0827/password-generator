@@ -97,13 +97,13 @@ export const Default = () => {
 
   return (
     <>
-      <Flex
-        alignItems="center"
-        justifyContent="center"
-        bg="gray.100"
-        height="100vh"
-      >
-        <ScaleFade initialScale={0.9} in>
+      <ScaleFade initialScale={0.9} in>
+        <Flex
+          alignItems="center"
+          justifyContent="center"
+          bg="gray.100"
+          height="100vh"
+        >
           <Stack
             w={600}
             boxShadow="md"
@@ -188,8 +188,8 @@ export const Default = () => {
               </Tooltip>
             </Flex>
           </Stack>
-        </ScaleFade>
-      </Flex>
+        </Flex>
+      </ScaleFade>
     </>
   );
 };
