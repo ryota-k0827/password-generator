@@ -147,7 +147,7 @@ export const Default = () => {
               <FormLabel>長さ</FormLabel>
               <NumberInput
                 value={length === 0 ? "" : length}
-                min={6}
+                min={1}
                 max={1000}
                 onChange={onChangeLength}
               >
@@ -165,7 +165,7 @@ export const Default = () => {
                   !checkedUppercase &&
                   !checkedLowercase &&
                   !checkedSymbol) ||
-                length < 6
+                length < 1
               }
               onClick={onClickGenerate}
               leftIcon={<CMdPassword />}
