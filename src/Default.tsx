@@ -1,6 +1,5 @@
-import { ChangeEvent, useState } from "react";
+import { ChangeEvent, useState } from 'react'
 import {
-  Button,
   chakra,
   Checkbox,
   CheckboxGroup,
@@ -20,99 +19,81 @@ import {
   Text,
   Tooltip,
   useClipboard,
-} from "@chakra-ui/react";
-import { FaClipboardList, FaClipboardCheck } from "react-icons/fa";
-import { MdPassword } from "react-icons/md";
-import { useToastMessage } from "./hooks/useToastMessage";
+} from '@chakra-ui/react'
+import { FaClipboardList, FaClipboardCheck } from 'react-icons/fa'
+import { useToastMessage } from './hooks/useToastMessage'
+import { PrimaryButton } from './components/PrimaryButton'
 
-const CFaClipboardList = chakra(FaClipboardList);
-const CFaClipboardCheck = chakra(FaClipboardCheck);
-const CMdPassword = chakra(MdPassword);
+const CFaClipboardList = chakra(FaClipboardList)
+const CFaClipboardCheck = chakra(FaClipboardCheck)
 
 export const Default = () => {
-  const { showMessage } = useToastMessage();
+  const { showMessage } = useToastMessage()
 
-  const passwordNumeric = "1234567890";
-  const passwordUppercase = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-  const passwordLowercase = "abcdefghijklmnopqrstuvwxyz";
-  const passwordSymbol = "!\"#$%&()=~|@[];:+-*<>?_>.,'";
+  const passwordNumeric = '1234567890'
+  const passwordUppercase = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
+  const passwordLowercase = 'abcdefghijklmnopqrstuvwxyz'
+  const passwordSymbol = '!"#$%&()=~|@[];:+-*<>?_>.,\''
 
-  const [checkedNumeric, setCheckedNumeric] = useState(true);
-  const [checkedUppercase, setCheckedUppercase] = useState(true);
-  const [checkedLowercase, setCheckedLowercase] = useState(true);
-  const [checkedSymbol, setCheckedSymbol] = useState(true);
-  const [length, setLength] = useState(12);
-  const [password, setPassword] = useState("");
+  const [checkedNumeric, setCheckedNumeric] = useState(true)
+  const [checkedUppercase, setCheckedUppercase] = useState(true)
+  const [checkedLowercase, setCheckedLowercase] = useState(true)
+  const [checkedSymbol, setCheckedSymbol] = useState(true)
+  const [length, setLength] = useState(12)
+  const [password, setPassword] = useState('')
 
-  const { hasCopied, onCopy } = useClipboard(password);
+  const { hasCopied, onCopy } = useClipboard(password)
 
-  const onChangeCheckedNumeric = (e: ChangeEvent<HTMLInputElement>) =>
-    setCheckedNumeric(e.target.checked);
-  const onChangeCheckedUppercase = (e: ChangeEvent<HTMLInputElement>) =>
-    setCheckedUppercase(e.target.checked);
-  const onChangeCheckedLowercase = (e: ChangeEvent<HTMLInputElement>) =>
-    setCheckedLowercase(e.target.checked);
-  const onChangeCheckedSymbol = (e: ChangeEvent<HTMLInputElement>) =>
-    setCheckedSymbol(e.target.checked);
+  const onChangeCheckedNumeric = (e: ChangeEvent<HTMLInputElement>) => setCheckedNumeric(e.target.checked)
+  const onChangeCheckedUppercase = (e: ChangeEvent<HTMLInputElement>) => setCheckedUppercase(e.target.checked)
+  const onChangeCheckedLowercase = (e: ChangeEvent<HTMLInputElement>) => setCheckedLowercase(e.target.checked)
+  const onChangeCheckedSymbol = (e: ChangeEvent<HTMLInputElement>) => setCheckedSymbol(e.target.checked)
   const onChangeLength = (valueString: string) => {
-    const value = Number(valueString);
+    const value = Number(valueString)
     if (value > 1000) {
-      setLength(1000);
+      setLength(1000)
     } else if (value < 1) {
-      setLength(0);
+      setLength(0)
     } else {
-      setLength(value);
+      setLength(value)
     }
-  };
+  }
 
   const onClickGenerate = () => {
-    let password = "";
-    let passwordBase = "";
+    let password = ''
+    let passwordBase = ''
 
-    if (checkedNumeric) passwordBase += passwordNumeric;
-    if (checkedUppercase) passwordBase += passwordUppercase;
-    if (checkedLowercase) passwordBase += passwordLowercase;
-    if (checkedSymbol) passwordBase += passwordSymbol;
+    if (checkedNumeric) passwordBase += passwordNumeric
+    if (checkedUppercase) passwordBase += passwordUppercase
+    if (checkedLowercase) passwordBase += passwordLowercase
+    if (checkedSymbol) passwordBase += passwordSymbol
 
     for (let i = 0; i < length; i++) {
-      password += passwordBase[Math.floor(Math.random() * passwordBase.length)];
+      password += passwordBase[Math.floor(Math.random() * passwordBase.length)]
     }
 
-    setPassword(password);
+    setPassword(password)
     showMessage({
-      title: "パスワードを生成しました",
+      title: 'パスワードを生成しました',
       description: null,
-      status: "success",
-    });
-  };
+      status: 'success',
+    })
+  }
 
   const onClickCopy = () => {
-    onCopy();
+    onCopy()
     showMessage({
-      title: "クリップボードにコピーしました",
+      title: 'クリップボードにコピーしました',
       description: null,
-      status: "info",
-    });
-  };
+      status: 'info',
+    })
+  }
 
   return (
     <>
       <ScaleFade initialScale={0.9} in>
-        <Flex
-          alignItems="center"
-          justifyContent="center"
-          bg="gray.100"
-          height="100vh"
-        >
-          <Stack
-            w={600}
-            boxShadow="md"
-            borderRadius={15}
-            spacing={4}
-            p={4}
-            mb={60}
-            bg="white"
-          >
+        <Flex alignItems="center" justifyContent="center" bg="gray.100" height="100vh">
+          <Stack w={600} boxShadow="md" borderRadius={15} spacing={4} p={4} mb={60} bg="white">
             <Text fontSize="xl" fontWeight="bold" textAlign="center" mb="22px">
               Password Generator
             </Text>
@@ -124,16 +105,10 @@ export const Default = () => {
                     <Checkbox defaultChecked onChange={onChangeCheckedNumeric}>
                       数字
                     </Checkbox>
-                    <Checkbox
-                      defaultChecked
-                      onChange={onChangeCheckedUppercase}
-                    >
+                    <Checkbox defaultChecked onChange={onChangeCheckedUppercase}>
                       英大文字
                     </Checkbox>
-                    <Checkbox
-                      defaultChecked
-                      onChange={onChangeCheckedLowercase}
-                    >
+                    <Checkbox defaultChecked onChange={onChangeCheckedLowercase}>
                       英小文字
                     </Checkbox>
                     <Checkbox defaultChecked onChange={onChangeCheckedSymbol}>
@@ -145,12 +120,7 @@ export const Default = () => {
             </Stack>
             <FormControl>
               <FormLabel>長さ</FormLabel>
-              <NumberInput
-                value={length === 0 ? "" : length}
-                min={1}
-                max={1000}
-                onChange={onChangeLength}
-              >
+              <NumberInput value={length === 0 ? '' : length} min={1} max={1000} onChange={onChangeLength}>
                 <NumberInputField />
                 <NumberInputStepper>
                   <NumberIncrementStepper />
@@ -158,32 +128,20 @@ export const Default = () => {
                 </NumberInputStepper>
               </NumberInput>
             </FormControl>
-            <Button
-              colorScheme="blue"
-              disabled={
-                (!checkedNumeric &&
-                  !checkedUppercase &&
-                  !checkedLowercase &&
-                  !checkedSymbol) ||
-                length < 1
-              }
+            <PrimaryButton
+              disabled={(!checkedNumeric && !checkedUppercase && !checkedLowercase && !checkedSymbol) || length < 1}
               onClick={onClickGenerate}
-              leftIcon={<CMdPassword />}
             >
               パスワード生成
-            </Button>
+            </PrimaryButton>
             <Flex mb={2}>
               <Input value={password} readOnly />
-              <Tooltip
-                label={hasCopied ? "コピーしました" : "クリップボードにコピー"}
-              >
+              <Tooltip label={hasCopied ? 'コピーしました' : 'クリップボードにコピー'}>
                 <IconButton
                   onClick={onClickCopy}
                   ml={2}
                   aria-label="copy"
-                  icon={
-                    hasCopied ? <CFaClipboardCheck /> : <CFaClipboardList />
-                  }
+                  icon={hasCopied ? <CFaClipboardCheck /> : <CFaClipboardList />}
                 />
               </Tooltip>
             </Flex>
@@ -191,5 +149,5 @@ export const Default = () => {
         </Flex>
       </ScaleFade>
     </>
-  );
-};
+  )
+}
