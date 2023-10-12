@@ -44,11 +44,24 @@ export const Default = () => {
 
   const { hasCopied, onCopy } = useClipboard(password)
 
-  const onChangeCheckedNumeric = (e: ChangeEvent<HTMLInputElement>) => setCheckedNumeric(e.target.checked)
-  const onChangeCheckedUppercase = (e: ChangeEvent<HTMLInputElement>) => setCheckedUppercase(e.target.checked)
-  const onChangeCheckedLowercase = (e: ChangeEvent<HTMLInputElement>) => setCheckedLowercase(e.target.checked)
-  const onChangeCheckedSymbol = (e: ChangeEvent<HTMLInputElement>) => setCheckedSymbol(e.target.checked)
-  const onChangeLength = (valueString: string) => {
+  const handleCheckedChange = (e: ChangeEvent<HTMLInputElement>) => {
+    switch (e.target.id) {
+      case 'numeric':
+        setCheckedNumeric(e.target.checked)
+        break
+      case 'uppercase':
+        setCheckedUppercase(e.target.checked)
+        break
+      case 'lowercase':
+        setCheckedLowercase(e.target.checked)
+        break
+      case 'symbol':
+        setCheckedSymbol(e.target.checked)
+        break
+    }
+  }
+
+  const handleLengthChange = (valueString: string) => {
     const value = Number(valueString)
     if (value > 1000) {
       setLength(1000)
@@ -59,7 +72,7 @@ export const Default = () => {
     }
   }
 
-  const onClickGenerate = () => {
+  const handleGenerateClick = () => {
     let password = ''
     let passwordBase = ''
 
@@ -72,6 +85,16 @@ export const Default = () => {
       password += passwordBase[Math.floor(Math.random() * passwordBase.length)]
     }
 
+    if (
+      (checkedNumeric && !password.match(/[0-9]/)) ||
+      (checkedUppercase && !password.match(/[A-Z]/)) ||
+      (checkedLowercase && !password.match(/[a-z]/)) ||
+      (checkedSymbol && !password.match(/[!"#$%&'()*+,-./:;<=>?@[\]^_`{|}~]/))
+    ) {
+      handleGenerateClick()
+      return
+    }
+
     setPassword(password)
     showMessage({
       title: 'パスワードを生成しました',
@@ -80,7 +103,7 @@ export const Default = () => {
     })
   }
 
-  const onClickCopy = () => {
+  const handleCopyClick = () => {
     onCopy()
     showMessage({
       title: 'クリップボードにコピーしました',
@@ -102,16 +125,16 @@ export const Default = () => {
                 <FormLabel>生成ルール</FormLabel>
                 <CheckboxGroup>
                   <HStack spacing="12px">
-                    <Checkbox defaultChecked onChange={onChangeCheckedNumeric}>
+                    <Checkbox id="numeric" defaultChecked onChange={handleCheckedChange}>
                       数字
                     </Checkbox>
-                    <Checkbox defaultChecked onChange={onChangeCheckedUppercase}>
+                    <Checkbox id="uppercase" defaultChecked onChange={handleCheckedChange}>
                       英大文字
                     </Checkbox>
-                    <Checkbox defaultChecked onChange={onChangeCheckedLowercase}>
+                    <Checkbox id="lowercase" defaultChecked onChange={handleCheckedChange}>
                       英小文字
                     </Checkbox>
-                    <Checkbox defaultChecked onChange={onChangeCheckedSymbol}>
+                    <Checkbox id="symbol" defaultChecked onChange={handleCheckedChange}>
                       記号
                     </Checkbox>
                   </HStack>
@@ -120,7 +143,7 @@ export const Default = () => {
             </Stack>
             <FormControl>
               <FormLabel>長さ</FormLabel>
-              <NumberInput value={length === 0 ? '' : length} min={1} max={1000} onChange={onChangeLength}>
+              <NumberInput value={length === 0 ? '' : length} min={1} max={1000} onChange={handleLengthChange}>
                 <NumberInputField />
                 <NumberInputStepper>
                   <NumberIncrementStepper />
@@ -130,7 +153,7 @@ export const Default = () => {
             </FormControl>
             <PrimaryButton
               disabled={(!checkedNumeric && !checkedUppercase && !checkedLowercase && !checkedSymbol) || length < 1}
-              onClick={onClickGenerate}
+              onClick={handleGenerateClick}
             >
               パスワード生成
             </PrimaryButton>
@@ -138,7 +161,7 @@ export const Default = () => {
               <Input value={password} readOnly />
               <Tooltip label={hasCopied ? 'コピーしました' : 'クリップボードにコピー'}>
                 <IconButton
-                  onClick={onClickCopy}
+                  onClick={handleCopyClick}
                   ml={2}
                   aria-label="copy"
                   icon={hasCopied ? <CFaClipboardCheck /> : <CFaClipboardList />}
