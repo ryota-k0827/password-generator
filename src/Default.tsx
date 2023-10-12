@@ -86,10 +86,11 @@ export const Default = () => {
     }
 
     if (
-      (checkedNumeric && !password.match(/[0-9]/)) ||
-      (checkedUppercase && !password.match(/[A-Z]/)) ||
-      (checkedLowercase && !password.match(/[a-z]/)) ||
-      (checkedSymbol && !password.match(/[!"#$%&'()*+,-./:;<=>?@[\]^_`{|}~]/))
+      ((checkedNumeric && !password.match(/[0-9]/)) ||
+        (checkedUppercase && !password.match(/[A-Z]/)) ||
+        (checkedLowercase && !password.match(/[a-z]/)) ||
+        (checkedSymbol && !password.match(/[!"#$%&'()*+,-./:;<=>?@[\]^_`{|}~]/))) &&
+      length >= 4
     ) {
       handleGenerateClick()
       return
