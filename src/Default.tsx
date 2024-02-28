@@ -6,6 +6,7 @@ import {
   Flex,
   FormControl,
   FormLabel,
+  Heading,
   HStack,
   IconButton,
   Input,
@@ -16,7 +17,6 @@ import {
   NumberInputStepper,
   ScaleFade,
   Stack,
-  Text,
   Tooltip,
   useClipboard,
 } from '@chakra-ui/react'
@@ -118,9 +118,9 @@ export const Default = () => {
       <ScaleFade initialScale={0.9} in>
         <Flex alignItems="center" justifyContent="center" bg="gray.100" height="100vh">
           <Stack w={600} boxShadow="md" borderRadius={15} spacing={4} p={4} mb={60} bg="white">
-            <Text fontSize="xl" fontWeight="bold" textAlign="center" mb="22px">
+            <Heading as="h1" fontSize="xl" fontWeight="bold" textAlign="center" mb="22px">
               Password Generator
-            </Text>
+            </Heading>
             <Stack spacing={5} direction="row">
               <FormControl>
                 <FormLabel>生成ルール</FormLabel>
