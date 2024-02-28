@@ -8,7 +8,7 @@
 ## 使用方法
 
 - GitHub Pages で公開しています
-- https://password-generator.kryota.dev/
+- https://password-generator.kryota.dev
 
 ## ライセンス
 
